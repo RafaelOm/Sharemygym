@@ -7,8 +7,11 @@ package swing;
 
 import Controllers.ServerService;
 import Jstartup.Usuario;
+import Publications.imagen;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.LinkedList;
+import java.util.List;
 import org.json.simple.JSONObject;
 
 /**
@@ -21,7 +24,11 @@ public class likes_comments_gui extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     private Usuario user;
-    public likes_comments_gui(String comment,Usuario user) {
+     private java.util.List<imagen> imagenes= new LinkedList<imagen>();
+     private String id;
+     private String actual_likes;
+    
+    public likes_comments_gui(String comment,Usuario user,String id ,String actual_likes) {
         initComponents();
         this.setTitle("Do you like the publication?");
          Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -30,6 +37,9 @@ public class likes_comments_gui extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         description_label.setText(comment);
         this.user=user;
+        this.id=id;
+        this.actual_likes=actual_likes;
+        likes_label.setText(actual_likes);
         
     }
 
@@ -47,6 +57,8 @@ public class likes_comments_gui extends javax.swing.JFrame {
         dar_like = new javax.swing.JButton();
         salir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        likes_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,43 +82,55 @@ public class likes_comments_gui extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Comment:");
 
+        jLabel3.setText("LIKES:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dar_like)
-                .addGap(63, 63, 63)
-                .addComponent(salir)
-                .addGap(158, 158, 158))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jLabel1))
+                        .addGap(80, 80, 80)
+                        .addComponent(description_label, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 44, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addComponent(description_label, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(jLabel2)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(likes_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(dar_like)
+                        .addGap(75, 75, 75)
+                        .addComponent(salir)
+                        .addGap(201, 201, 201))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(177, 177, 177))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(description_label, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dar_like)
-                    .addComponent(salir))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1)
+                    .addComponent(likes_label, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salir)
+                    .addComponent(dar_like))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -118,6 +142,7 @@ public class likes_comments_gui extends javax.swing.JFrame {
         //Añadimos el id y la puntruacion al JSON
         jsonObj.put("username",user.getUser());
         jsonObj.put("password", user.getPassword());
+        jsonObj.put("publicacion", id);
         
         ServerService.sendPost("likes.php",jsonObj);
         
@@ -140,6 +165,8 @@ public class likes_comments_gui extends javax.swing.JFrame {
     private javax.swing.JLabel description_label;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel likes_label;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 }

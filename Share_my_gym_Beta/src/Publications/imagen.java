@@ -14,9 +14,9 @@ public class imagen {
     private String url;
     private String descripcion;
     private int tipo;
-    private int id;
+    private String id;
     
-    public imagen(int tipo, String descripcion, String url,int id){
+    public imagen(int tipo, String descripcion, String url,String id){
         this.url=url;
         this.descripcion=descripcion;
         this.tipo=tipo;
@@ -34,7 +34,7 @@ public class imagen {
     public int Tipo(){
         return tipo;
     }
-    public int getId(){
+    public String getId(){
         return id;
     }
     

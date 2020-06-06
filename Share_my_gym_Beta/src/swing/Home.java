@@ -73,7 +73,7 @@ public class Home extends javax.swing.JFrame {
             try {  
                 JSONArray jArray = (JSONArray) parser.parse(result);
             
-                imagenes_busqueda=t.ver_tabla(timeline,"Timeline",jArray);
+                imagenes_timeline=t.ver_tabla(timeline,"Timeline",jArray);
             } catch (ParseException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -81,7 +81,7 @@ public class Home extends javax.swing.JFrame {
             }
         }
         
-       
+       username_btn.setText("@"+usuarioObj.getUser());
         setLocationRelativeTo(null);		
         setVisible(true);
     }
@@ -148,6 +148,8 @@ public class Home extends javax.swing.JFrame {
         Ranking = new javax.swing.JPanel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel13 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         user = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -520,7 +522,7 @@ public class Home extends javax.swing.JFrame {
         );
         DiscoverLayout.setVerticalGroup(
             DiscoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
         );
 
         getContentPane().add(Discover, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
@@ -732,7 +734,6 @@ public class Home extends javax.swing.JFrame {
         side_pane.add(profile_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 70, 30));
 
         username_btn.setBorder(null);
-        username_btn.setText("@holahola");
         username_btn.setFont(new java.awt.Font("Yu Gothic Light", 0, 15)); // NOI18N
         username_btn.setkEndColor(new java.awt.Color(0, 0, 0));
         username_btn.setkFillButton(false);
@@ -894,6 +895,19 @@ public class Home extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel13.setText("TOP 10 RANKING");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+            },
+            new String [] {
+                "USUARIO","PUNTOS"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable1);
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -901,14 +915,20 @@ public class Home extends javax.swing.JFrame {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(jLabel13)
-                .addContainerGap(604, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap(266, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(232, 232, 232))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel13)
-                .addContainerGap(456, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout RankingLayout = new javax.swing.GroupLayout(Ranking);
@@ -919,7 +939,7 @@ public class Home extends javax.swing.JFrame {
         );
         RankingLayout.setVerticalGroup(
             RankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
         );
 
         getContentPane().add(Ranking, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
@@ -1024,6 +1044,7 @@ public class Home extends javax.swing.JFrame {
 
     private void username_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_btnActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_username_btnActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
@@ -1041,10 +1062,24 @@ public class Home extends javax.swing.JFrame {
             if(value instanceof JButton){
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
-                likes_comments_gui gui= new likes_comments_gui(boton.getName(),usuarioObj);
+                String comment="";
+                int cont=0;
+                while(cont<imagenes_timeline.size()){
+                    if(imagenes_timeline.get(cont).getId().equals(boton.getName())){
+                        comment=imagenes_timeline.get(cont).getDescripcion();
+                    }
+                    cont++;
+                }
+                
+                JSONObject obj = new JSONObject();
+                obj.put("publicacion", boton.getName());
+                String result = ServerService.sendPost("verlikes.php", obj);
+             
+        
+                likes_comments_gui gui= new likes_comments_gui(comment,usuarioObj,boton.getName(),result);
                 gui.setVisible(true);
                 gui.setDefaultCloseOperation(0);
-            }
+            
             if(value instanceof JCheckBox){
                 //((JCheckBox)value).doClick();
                 JCheckBox ch = (JCheckBox)value;
@@ -1056,7 +1091,8 @@ public class Home extends javax.swing.JFrame {
                 }
                 
             }
-        }        // TODO add your handling code here:
+        }   
+        }// TODO add your handling code here:
     }//GEN-LAST:event_timelineMouseClicked
 
     private void busqueda_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busqueda_tableMouseClicked
@@ -1071,8 +1107,11 @@ public class Home extends javax.swing.JFrame {
             if(value instanceof JButton){
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
-                   
-                     likes_comments_gui gui= new likes_comments_gui(boton.getName(),usuarioObj);
+                JSONObject obj = new JSONObject();
+                obj.put("publicacion", boton.getName());
+                String result = ServerService.sendPost("verlikes.php", obj);   
+                
+                     likes_comments_gui gui= new likes_comments_gui(boton.getName(),usuarioObj,boton.getName(),result);
                        gui.setVisible(true);
                         gui.setDefaultCloseOperation(0);
             }
@@ -1315,6 +1354,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel3;

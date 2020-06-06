@@ -41,7 +41,7 @@ public class Tabla{
                  for(int i=0;i<jArray.size();i++){
                     //JELem = jArray.get();
                     JSONArray jCurrent = (JSONArray) jArray.get(i);
-                    imagen img =new imagen(parseInt(jCurrent.get(0).toString()),jCurrent.get(1).toString(),jCurrent.get(2).toString(),parseInt(jCurrent.get(3).toString()));
+                    imagen img =new imagen(parseInt(jCurrent.get(0).toString()),jCurrent.get(1).toString(),jCurrent.get(2).toString(),jCurrent.get(3).toString());
                    
                     imagenes.add(img);
                   
@@ -61,7 +61,8 @@ public class Tabla{
                             Image newimg = image.getScaledInstance( 100, 120,  java.awt.Image.SCALE_SMOOTH ) ;
                             ImageIcon icon = new ImageIcon(newimg);
                              JButton btn = new JButton(icon);
-                             btn.setName(imagenes.get(indice).getDescripcion());
+                           
+                           btn.setName(imagenes.get(indice).getId());
                          busqueda[i][j]=btn;
                          
                          indice++;
@@ -106,7 +107,7 @@ public class Tabla{
                  for(int i=0;i<jArray.size();i++){
                     //JELem = jArray.get();
                     JSONArray jCurrent = (JSONArray) jArray.get(i);
-                    imagen img =new imagen(parseInt(jCurrent.get(0).toString()),jCurrent.get(1).toString(),jCurrent.get(2).toString(),parseInt(jCurrent.get(3).toString()));
+                    imagen img =new imagen(parseInt(jCurrent.get(0).toString()),jCurrent.get(1).toString(),jCurrent.get(2).toString(),jCurrent.get(3).toString());
                    
                     imagenes.add(img);
                   
@@ -126,7 +127,7 @@ public class Tabla{
                             Image newimg = image.getScaledInstance( 70, 80,  java.awt.Image.SCALE_SMOOTH ) ;
                             ImageIcon icon = new ImageIcon(newimg);
                              JButton btn = new JButton(icon);
-                             btn.setName(imagenes.get(indice).getDescripcion());
+                             btn.setName(imagenes.get(indice).getId());
                          busqueda[i][j]=btn;
                          
                          indice++;
