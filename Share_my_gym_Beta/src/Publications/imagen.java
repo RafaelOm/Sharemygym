@@ -14,11 +14,13 @@ public class imagen {
     private String url;
     private String descripcion;
     private int tipo;
+    private int id;
     
-    public imagen(int tipo, String descripcion, String url){
+    public imagen(int tipo, String descripcion, String url,int id){
         this.url=url;
         this.descripcion=descripcion;
         this.tipo=tipo;
+        this.id=id;
         
     }
     
@@ -31,6 +33,9 @@ public class imagen {
     }
     public int Tipo(){
         return tipo;
+    }
+    public int getId(){
+        return id;
     }
     
 }

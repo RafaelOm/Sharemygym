@@ -1042,20 +1042,7 @@ public class Home extends javax.swing.JFrame {
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
 
-                if(boton.getName().equals("m")){
-                    System.out.println("Click en el boton modificar");
-                    //EVENTOS MODIFICAR
-                }
-                if(boton.getName().equals("e")){
-                    JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
-                    System.out.println("Click en el boton eliminar");
-                    //EVENTOS ELIMINAR
-                }
-                 if(boton.getName().equals("decripcion")){
-                    JOptionPane.showConfirmDialog(null, "SOY DESCRIPCION", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
-                    System.out.println("Click en el boton eliminar");
-                    //EVENTOS ELIMINAR
-                }
+               JOptionPane.showConfirmDialog(null, boton.getName(), "Descripcion", JOptionPane.OK_CANCEL_OPTION);
             }
             if(value instanceof JCheckBox){
                 //((JCheckBox)value).doClick();
