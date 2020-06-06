@@ -19,8 +19,8 @@ public class Usuario {
         this.password=p;
     }
     
-    public String getEmail(){
-        return email;
+    public String getUser(){
+        return usuario;
         
     }
     

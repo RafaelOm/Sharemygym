@@ -6,11 +6,13 @@
 package swing;
 
 import static Download_system.saveImage.saveImage;
+import Publications.imagen;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +28,7 @@ import org.json.simple.JSONArray;
 
 public class Tabla{
     
-    private List<String> imagenes= new LinkedList<String>();
+    private List<imagen> imagenes= new LinkedList<imagen>();
     
     
     public List ver_tabla(JTable tabla,String Type,JSONArray jArray) throws IOException{//devuelve images
@@ -94,14 +96,14 @@ public class Tabla{
             btn1.setName("descripcion");
         
             
-            
+                 tabla.removeAll();
                  for(int i=0;i<jArray.size();i++){
                     //JELem = jArray.get();
                     JSONArray jCurrent = (JSONArray) jArray.get(i);
-                    String imagen="";
+                    imagen img =new imagen(parseInt(jCurrent.get(0).toString()),jCurrent.get(1).toString(),jCurrent.get(2).toString());
                    
-                    imagenes.add(jCurrent.get(2).toString());
-                    descripciones.add
+                    imagenes.add(img);
+                  
                   
                     JOptionPane.showMessageDialog(null, jCurrent.toString(), "Información", JOptionPane.INFORMATION_MESSAGE);
                     //timeline.add
@@ -113,12 +115,12 @@ public class Tabla{
                  for(int i=0;i<10;i++){
                      for(int j=0;j<2;j++){
                          if(!completo){
-                                   InputStream input = new URL("https://39383197.servicio-online.net/"+imagenes.get(indice)).openStream();
+                                   InputStream input = new URL("https://39383197.servicio-online.net/"+imagenes.get(indice).getUrl()).openStream();
                             BufferedImage image = ImageIO.read(input);
                             Image newimg = image.getScaledInstance( 70, 80,  java.awt.Image.SCALE_SMOOTH ) ;
                             ImageIcon icon = new ImageIcon(newimg);
                              JButton btn = new JButton(icon);
-                             btn.setName("descripcion");
+                             btn.setName(imagenes.get(indice).getDescripcion());
                          busqueda[i][j]=btn;
                          
                          indice++;

@@ -9,12 +9,14 @@ package swing;
 import Controllers.ServerService;
 import Jstartup.Jbuttonrenderizado;
 import Jstartup.Usuario;
+import Publications.imagen;
 import Upload_System.Upload;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.*; 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -31,7 +33,9 @@ import org.json.simple.parser.ParseException;
  * @author Admin
  */
 public class Home extends javax.swing.JFrame {
-
+    
+    private java.util.List<imagen> imagenes_busqueda= new LinkedList<imagen>();
+    private java.util.List<imagen> imagenes_timeline= new LinkedList<imagen>();
     /**
      * Creates new form Home
      */
@@ -52,15 +56,32 @@ public class Home extends javax.swing.JFrame {
         setColor(Home_btn); 
         ind_1.setOpaque(true);
         resetColor(new JPanel[]{Ranking_btn,Discover_btn,Create_btn}, new JPanel[]{ind_2,ind_3, ind_4});
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
-    //t.ver_tabla(timeline,"Timeline");
+   
        
         // jProgressBar1.setValue(50);
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         int height = pantalla.height;
         int width = pantalla.width;
         // setSize(400,500);		
- 
+        
+         JSONObject obj = new JSONObject();
+        obj.put("username", username.getText());
+               
+        String result = ServerService.sendPost("home.php", obj);
+        if(!result.equals("ZERO_RESULTS")){
+            JSONParser parser = new JSONParser();
+            try {  
+                JSONArray jArray = (JSONArray) parser.parse(result);
+            
+                imagenes_busqueda=t.ver_tabla(timeline,"Timeline",jArray);
+            } catch (ParseException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+       
         setLocationRelativeTo(null);		
         setVisible(true);
     }
@@ -82,7 +103,7 @@ public class Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        timeline1 = new javax.swing.JTable();
+        busqueda_table = new javax.swing.JTable();
         username = new javax.swing.JTextField();
         Username_label = new javax.swing.JLabel();
         pubblication_Date = new javax.swing.JTextField();
@@ -181,7 +202,7 @@ public class Home extends javax.swing.JFrame {
 
         jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        timeline1.setModel(new javax.swing.table.DefaultTableModel(
+        busqueda_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -192,12 +213,12 @@ public class Home extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        timeline1.addMouseListener(new java.awt.event.MouseAdapter() {
+        busqueda_table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                timeline1MouseClicked(evt);
+                busqueda_tableMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(timeline1);
+        jScrollPane3.setViewportView(busqueda_table);
 
         username.setBackground(new Color(0,0,0,0));
         username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1050,30 +1071,21 @@ public class Home extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_timelineMouseClicked
 
-    private void timeline1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timeline1MouseClicked
+    private void busqueda_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busqueda_tableMouseClicked
         // TODO add your handling code here:
          // TODO add your handling code here:
         
-        int column = timeline1.getColumnModel().getColumnIndexAtX(evt.getX());
-        int row = evt.getY()/timeline1.getRowHeight();
+        int column = busqueda_table.getColumnModel().getColumnIndexAtX(evt.getX());
+        int row = evt.getY()/busqueda_table.getRowHeight();
         
-        if(row < timeline1.getRowCount() && row >= 0 && column < timeline1.getColumnCount() && column >= 0){
-            Object value = timeline1.getValueAt(row, column);
+        if(row < busqueda_table.getRowCount() && row >= 0 && column < busqueda_table.getColumnCount() && column >= 0){
+            Object value = busqueda_table.getValueAt(row, column);
             if(value instanceof JButton){
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
                    
-                if(boton.getName().equals("descripcion")){
-                    System.out.println("holaaaa");
-                    //EVENTOS MODIFICAR
-                }else{
-                    
-                }
-                if(boton.getName().equals("m")){
-              
-                    System.out.println("Click en el boton eliminar");
-                    //EVENTOS ELIMINAR
-                }
+                     
+                       JOptionPane.showConfirmDialog(null, boton.getName(), "Descripcion", JOptionPane.OK_CANCEL_OPTION);
             
             }
             if(value instanceof JCheckBox){
@@ -1089,7 +1101,7 @@ public class Home extends javax.swing.JFrame {
             }
         }        // TODO 
         
-    }//GEN-LAST:event_timeline1MouseClicked
+    }//GEN-LAST:event_busqueda_tableMouseClicked
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
@@ -1175,7 +1187,7 @@ public class Home extends javax.swing.JFrame {
 
     private void SubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubirActionPerformed
         // TODO add your handling code here:
-        Upload subir=new Upload(pie_foto.getText(),tipo.getSelectedIndex(), usuarioObj.getEmail(),usuarioObj.getPassword());
+        Upload subir=new Upload(pie_foto.getText(),tipo.getSelectedIndex(), usuarioObj.getUser(),usuarioObj.getPassword());
         
         subir.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_SubirActionPerformed
@@ -1190,7 +1202,7 @@ public class Home extends javax.swing.JFrame {
             try {  
                 JSONArray jArray = (JSONArray) parser.parse(result);
             
-                v.ver_tabla(timeline1,"Discover",jArray);
+                imagenes_busqueda=v.ver_tabla(busqueda_table,"Discover",jArray);
             } catch (ParseException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -1293,6 +1305,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel Username_label;
     private javax.swing.JLabel Username_label1;
     private javax.swing.JLabel btn_exit;
+    private javax.swing.JTable busqueda_table;
     private javax.swing.JPanel home;
     private javax.swing.JPanel ind_1;
     private javax.swing.JPanel ind_2;
@@ -1326,7 +1339,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> routine_time_per_week;
     private javax.swing.JPanel side_pane;
     private javax.swing.JTable timeline;
-    private javax.swing.JTable timeline1;
     private javax.swing.JComboBox<String> tipo;
     private javax.swing.JPanel top_panel;
     private javax.swing.JPanel user;

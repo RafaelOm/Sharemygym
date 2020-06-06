@@ -252,7 +252,7 @@ public class Upload extends javax.swing.JFrame {
         //Añadimos el id y la puntruacion al JSON
         jsonObj.put("tipo",tipo);
         jsonObj.put("desc", comentario);
-        jsonObj.put("email", email);
+        jsonObj.put("username", email);
         jsonObj.put("password", password);
         jsonObj.put("img", result.toString());
         
