@@ -85,6 +85,11 @@ public class startup extends javax.swing.JFrame {
         login.setkHoverStartColor(new java.awt.Color(102, 204, 255));
         login.setkPressedColor(new java.awt.Color(51, 102, 255));
         login.setkStartColor(new java.awt.Color(255, 255, 255));
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Jstartup/images/logofin.png"))); // NOI18N
 
@@ -113,7 +118,7 @@ public class startup extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -151,6 +156,10 @@ public class startup extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_signupActionPerformed
 
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -164,9 +173,9 @@ public class startup extends javax.swing.JFrame {
     } 
         private void loginMousePressed(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
-        Home h =new Home();
-        h.setVisible(true);
-        dispose();
+      Signin inicio= new Signin();
+      inicio.setVisible(true);
+      dispose();
         
         
     } 

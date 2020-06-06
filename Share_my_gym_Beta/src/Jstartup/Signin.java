@@ -27,7 +27,7 @@ public class Signin extends javax.swing.JFrame {
      * Creates new form startup
      */
     public Signin() {
-        initComponents();
+       
        // super("Centrar JFrame");
         initComponents();
         this.setTitle("Log in");
@@ -171,7 +171,8 @@ public class Signin extends javax.swing.JFrame {
     }//GEN-LAST:event_kGradientPanel1MouseDragged
 
     private void signinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinActionPerformed
-        // TODO add your handling code here:
+       
+             
     }//GEN-LAST:event_signinActionPerformed
   private void signinMousePressed(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:

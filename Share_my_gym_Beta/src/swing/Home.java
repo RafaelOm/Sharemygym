@@ -1155,8 +1155,8 @@ public class Home extends javax.swing.JFrame {
 
     private void SubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubirActionPerformed
         // TODO add your handling code here:
-        Upload subir=new Upload(pie_foto.getText(),tipo.getSelectedIndex(),"info@sharemygym.es","hola");
-        //usuarioObj.getEmail(),usuarioObj.getPassword());
+        Upload subir=new Upload(pie_foto.getText(),tipo.getSelectedIndex(), usuarioObj.getEmail(),usuarioObj.getPassword());
+        
         subir.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_SubirActionPerformed
     private void lblMouseClicked(java.awt.event.MouseEvent evt){

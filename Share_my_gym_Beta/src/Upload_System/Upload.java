@@ -257,6 +257,7 @@ public class Upload extends javax.swing.JFrame {
         jsonObj.put("img", result.toString());
         
         ServerService.sendPost("subir.php",jsonObj);
+        this.dispose();
     }
     
   
