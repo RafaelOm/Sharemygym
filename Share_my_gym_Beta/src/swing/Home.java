@@ -6,6 +6,7 @@
 package swing;
 
 
+import Controllers.ServerService;
 import Jstartup.Jbuttonrenderizado;
 import Jstartup.Usuario;
 import Upload_System.Upload;
@@ -17,6 +18,8 @@ import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -65,6 +68,26 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
+        Discover = new javax.swing.JPanel();
+        kGradientPanel2 = new keeptoo.KGradientPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        timeline1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        username = new javax.swing.JTextField();
+        Username_label = new javax.swing.JLabel();
+        pubblication_Date = new javax.swing.JTextField();
+        Username_label1 = new javax.swing.JLabel();
+        Search = new keeptoo.KButton();
+        routine_diet_Type = new javax.swing.JComboBox<>();
+        Search_Type_label = new javax.swing.JLabel();
+        Choose_user_btn = new keeptoo.KButton();
+        Choose_diet_btn = new keeptoo.KButton();
+        publication_name = new javax.swing.JTextField();
+        Publication_name_lbl = new javax.swing.JLabel();
+        routine_diet_difficulty = new javax.swing.JComboBox<>();
+        routine_time_per_week = new javax.swing.JComboBox<>();
+        Choose_routine_btn = new keeptoo.KButton();
         side_pane = new javax.swing.JPanel();
         Home_btn = new javax.swing.JPanel();
         ind_1 = new javax.swing.JPanel();
@@ -86,26 +109,6 @@ public class Home extends javax.swing.JFrame {
         home = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         timeline = new javax.swing.JTable();
-        Discover = new javax.swing.JPanel();
-        kGradientPanel2 = new keeptoo.KGradientPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        timeline1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        username = new javax.swing.JTextField();
-        Username_label = new javax.swing.JLabel();
-        pubblication_Date = new javax.swing.JTextField();
-        Username_label1 = new javax.swing.JLabel();
-        Search = new keeptoo.KButton();
-        routine_diet_Type = new javax.swing.JComboBox<>();
-        Search_Type_label = new javax.swing.JLabel();
-        Choose_user_btn = new keeptoo.KButton();
-        Choose_diet_btn = new keeptoo.KButton();
-        publication_name = new javax.swing.JTextField();
-        Publication_name_lbl = new javax.swing.JLabel();
-        routine_diet_difficulty = new javax.swing.JComboBox<>();
-        routine_time_per_week = new javax.swing.JComboBox<>();
-        Choose_routine_btn = new keeptoo.KButton();
         Create = new javax.swing.JPanel();
         kGradientPanel3 = new keeptoo.KGradientPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -127,6 +130,343 @@ public class Home extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Discover.setBackground(new java.awt.Color(255, 255, 255));
+
+        kGradientPanel2.setkEndColor(new java.awt.Color(0, 0, 0));
+        kGradientPanel2.setkStartColor(new java.awt.Color(102, 102, 102));
+        kGradientPanel2.setName("Publication Date"); // NOI18N
+
+        jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        timeline1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        timeline1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                timeline1MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(timeline1);
+
+        jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 60)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Discover");
+
+        username.setBackground(new Color(0,0,0,0));
+        username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        username.setForeground(new java.awt.Color(255, 255, 255));
+        username.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        username.setCaretColor(new java.awt.Color(255, 255, 255));
+        username.setEnabled(false);
+        username.setOpaque(false);
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
+
+        Username_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Username_label.setForeground(new java.awt.Color(255, 255, 255));
+        Username_label.setText("username");
+
+        pubblication_Date.setBackground(new Color(0,0,0,0));
+        pubblication_Date.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pubblication_Date.setForeground(new java.awt.Color(255, 255, 255));
+        pubblication_Date.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        pubblication_Date.setCaretColor(new java.awt.Color(255, 255, 255));
+        pubblication_Date.setEnabled(false);
+        pubblication_Date.setOpaque(false);
+        pubblication_Date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pubblication_DateActionPerformed(evt);
+            }
+        });
+
+        Username_label1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Username_label1.setForeground(new java.awt.Color(255, 255, 255));
+        Username_label1.setText("Publication Date(dd/mm/YYYY)");
+
+        Search.setBorder(null);
+        Search.setText("Search");
+        Search.setkBorderRadius(30);
+        Search.setkEndColor(new java.awt.Color(255, 255, 255));
+        Search.setkFillButton(false);
+        Search.setkHoverEndColor(new java.awt.Color(51, 102, 255));
+        Search.setkHoverForeGround(new java.awt.Color(102, 204, 255));
+        Search.setkHoverStartColor(new java.awt.Color(102, 204, 255));
+        Search.setkPressedColor(new java.awt.Color(51, 102, 255));
+        Search.setkStartColor(new java.awt.Color(255, 255, 255));
+        Search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SearchMousePressed(evt);
+            }
+        });
+        Search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchActionPerformed(evt);
+            }
+        });
+
+        routine_diet_Type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Type", "Day", "Noon", "Breakfast" }));
+        routine_diet_Type.setToolTipText("Filter");
+        routine_diet_Type.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        routine_diet_Type.setEnabled(false);
+        routine_diet_Type.setName(""); // NOI18N
+        routine_diet_Type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                routine_diet_TypeActionPerformed(evt);
+            }
+        });
+
+        Search_Type_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Search_Type_label.setForeground(new java.awt.Color(255, 255, 255));
+        Search_Type_label.setText("Search Type:");
+
+        Choose_user_btn.setBorder(null);
+        Choose_user_btn.setText("User");
+        Choose_user_btn.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        Choose_user_btn.setkBorderRadius(30);
+        Choose_user_btn.setkEndColor(new java.awt.Color(255, 255, 255));
+        Choose_user_btn.setkFillButton(false);
+        Choose_user_btn.setkHoverEndColor(new java.awt.Color(51, 102, 255));
+        Choose_user_btn.setkHoverForeGround(new java.awt.Color(102, 204, 255));
+        Choose_user_btn.setkHoverStartColor(new java.awt.Color(102, 204, 255));
+        Choose_user_btn.setkPressedColor(new java.awt.Color(51, 102, 255));
+        Choose_user_btn.setkStartColor(new java.awt.Color(255, 255, 255));
+        Choose_user_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Choose_user_btnMousePressed(evt);
+            }
+        });
+        Choose_user_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Choose_user_btnActionPerformed(evt);
+            }
+        });
+
+        Choose_diet_btn.setBorder(null);
+        Choose_diet_btn.setText("diet");
+        Choose_diet_btn.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        Choose_diet_btn.setkBorderRadius(30);
+        Choose_diet_btn.setkEndColor(new java.awt.Color(255, 255, 255));
+        Choose_diet_btn.setkFillButton(false);
+        Choose_diet_btn.setkHoverEndColor(new java.awt.Color(51, 102, 255));
+        Choose_diet_btn.setkHoverForeGround(new java.awt.Color(102, 204, 255));
+        Choose_diet_btn.setkHoverStartColor(new java.awt.Color(102, 204, 255));
+        Choose_diet_btn.setkPressedColor(new java.awt.Color(51, 102, 255));
+        Choose_diet_btn.setkStartColor(new java.awt.Color(255, 255, 255));
+        Choose_diet_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Choose_diet_btnMousePressed(evt);
+            }
+        });
+        Choose_diet_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Choose_diet_btnActionPerformed(evt);
+            }
+        });
+
+        publication_name.setBackground(new Color(0,0,0,0));
+        publication_name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        publication_name.setForeground(new java.awt.Color(255, 255, 255));
+        publication_name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        publication_name.setCaretColor(new java.awt.Color(255, 255, 255));
+        publication_name.setEnabled(false);
+        publication_name.setOpaque(false);
+        publication_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publication_nameActionPerformed(evt);
+            }
+        });
+
+        Publication_name_lbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Publication_name_lbl.setForeground(new java.awt.Color(255, 255, 255));
+        Publication_name_lbl.setText("Publication Name");
+
+        routine_diet_difficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose the difficulty", "Easy", "Medium", "Hard","Challenger" }));
+        routine_diet_difficulty.setToolTipText("Filter");
+        routine_diet_difficulty.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        routine_diet_difficulty.setEnabled(false);
+        routine_diet_difficulty.setName(""); // NOI18N
+        routine_diet_difficulty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                routine_diet_difficultyActionPerformed(evt);
+            }
+        });
+
+        routine_time_per_week.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Days per Week", "2 days", "3 days", "4 days","5 days","6 days" }));
+        routine_time_per_week.setToolTipText("Filter");
+        routine_time_per_week.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        routine_time_per_week.setEnabled(false);
+        routine_time_per_week.setName(""); // NOI18N
+        routine_time_per_week.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                routine_time_per_weekActionPerformed(evt);
+            }
+        });
+
+        Choose_routine_btn.setBorder(null);
+        Choose_routine_btn.setText("Routine");
+        Choose_routine_btn.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        Choose_routine_btn.setkBorderRadius(30);
+        Choose_routine_btn.setkEndColor(new java.awt.Color(255, 255, 255));
+        Choose_routine_btn.setkFillButton(false);
+        Choose_routine_btn.setkHoverEndColor(new java.awt.Color(51, 102, 255));
+        Choose_routine_btn.setkHoverForeGround(new java.awt.Color(102, 204, 255));
+        Choose_routine_btn.setkHoverStartColor(new java.awt.Color(102, 204, 255));
+        Choose_routine_btn.setkPressedColor(new java.awt.Color(51, 102, 255));
+        Choose_routine_btn.setkStartColor(new java.awt.Color(255, 255, 255));
+        Choose_routine_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Choose_routine_btnMousePressed(evt);
+            }
+        });
+        Choose_routine_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Choose_routine_btnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
+        kGradientPanel2.setLayout(kGradientPanel2Layout);
+        kGradientPanel2Layout.setHorizontalGroup(
+            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Username_label1)
+                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(Username_label))
+                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                .addGap(69, 69, 69)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1))
+                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pubblication_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Publication_name_lbl)
+                            .addComponent(publication_name, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(routine_diet_difficulty, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(routine_diet_Type, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(routine_time_per_week, javax.swing.GroupLayout.Alignment.LEADING, 0, 230, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)))
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                        .addComponent(Search_Type_label)
+                        .addGap(18, 18, 18)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Choose_routine_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(Choose_user_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                                .addComponent(Choose_diet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGap(135, 135, 135))))
+        );
+        kGradientPanel2Layout.setVerticalGroup(
+            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Choose_user_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                                .addComponent(Search_Type_label)
+                                .addGap(37, 37, 37))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                                .addComponent(Choose_diet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Choose_routine_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)))))
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addComponent(Username_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Username_label1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pubblication_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Publication_name_lbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(publication_name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(routine_diet_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(routine_diet_difficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(routine_time_per_week, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))))
+        );
+
+        Search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SearchMousePressed(evt);
+            }
+        });
+        Search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SearchMousePressed(evt);
+            }
+        });
+        Search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SearchMousePressed(evt);
+            }
+        });
+        Search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SearchMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout DiscoverLayout = new javax.swing.GroupLayout(Discover);
+        Discover.setLayout(DiscoverLayout);
+        DiscoverLayout.setHorizontalGroup(
+            DiscoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(kGradientPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
+        );
+        DiscoverLayout.setVerticalGroup(
+            DiscoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(Discover, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
 
         side_pane.setBackground(new java.awt.Color(0, 0, 0));
         side_pane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -437,340 +777,6 @@ public class Home extends javax.swing.JFrame {
         );
 
         getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
-
-        Discover.setBackground(new java.awt.Color(255, 255, 255));
-
-        kGradientPanel2.setkEndColor(new java.awt.Color(0, 0, 0));
-        kGradientPanel2.setkStartColor(new java.awt.Color(102, 102, 102));
-        kGradientPanel2.setName("Publication Date"); // NOI18N
-
-        jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        timeline1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        timeline1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                timeline1MouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(timeline1);
-
-        jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 60)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Discover");
-
-        username.setBackground(new Color(0,0,0,0));
-        username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        username.setForeground(new java.awt.Color(255, 255, 255));
-        username.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        username.setCaretColor(new java.awt.Color(255, 255, 255));
-        username.setEnabled(false);
-        username.setOpaque(false);
-        username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
-            }
-        });
-
-        Username_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Username_label.setForeground(new java.awt.Color(255, 255, 255));
-        Username_label.setText("username");
-
-        pubblication_Date.setBackground(new Color(0,0,0,0));
-        pubblication_Date.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pubblication_Date.setForeground(new java.awt.Color(255, 255, 255));
-        pubblication_Date.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        pubblication_Date.setCaretColor(new java.awt.Color(255, 255, 255));
-        pubblication_Date.setEnabled(false);
-        pubblication_Date.setOpaque(false);
-        pubblication_Date.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pubblication_DateActionPerformed(evt);
-            }
-        });
-
-        Username_label1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Username_label1.setForeground(new java.awt.Color(255, 255, 255));
-        Username_label1.setText("Publication Date(dd/mm/YYYY)");
-
-        Search.setBorder(null);
-        Search.setText("Search");
-        Search.setkBorderRadius(30);
-        Search.setkEndColor(new java.awt.Color(255, 255, 255));
-        Search.setkFillButton(false);
-        Search.setkHoverEndColor(new java.awt.Color(51, 102, 255));
-        Search.setkHoverForeGround(new java.awt.Color(102, 204, 255));
-        Search.setkHoverStartColor(new java.awt.Color(102, 204, 255));
-        Search.setkPressedColor(new java.awt.Color(51, 102, 255));
-        Search.setkStartColor(new java.awt.Color(255, 255, 255));
-        Search.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SearchMousePressed(evt);
-            }
-        });
-        Search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchActionPerformed(evt);
-            }
-        });
-
-        routine_diet_Type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Type", "Day", "Noon", "Breakfast" }));
-        routine_diet_Type.setToolTipText("Filter");
-        routine_diet_Type.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        routine_diet_Type.setEnabled(false);
-        routine_diet_Type.setName(""); // NOI18N
-        routine_diet_Type.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                routine_diet_TypeActionPerformed(evt);
-            }
-        });
-
-        Search_Type_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Search_Type_label.setForeground(new java.awt.Color(255, 255, 255));
-        Search_Type_label.setText("Search Type:");
-
-        Choose_user_btn.setBorder(null);
-        Choose_user_btn.setText("User");
-        Choose_user_btn.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        Choose_user_btn.setkBorderRadius(30);
-        Choose_user_btn.setkEndColor(new java.awt.Color(255, 255, 255));
-        Choose_user_btn.setkFillButton(false);
-        Choose_user_btn.setkHoverEndColor(new java.awt.Color(51, 102, 255));
-        Choose_user_btn.setkHoverForeGround(new java.awt.Color(102, 204, 255));
-        Choose_user_btn.setkHoverStartColor(new java.awt.Color(102, 204, 255));
-        Choose_user_btn.setkPressedColor(new java.awt.Color(51, 102, 255));
-        Choose_user_btn.setkStartColor(new java.awt.Color(255, 255, 255));
-        Choose_user_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Choose_user_btnMousePressed(evt);
-            }
-        });
-        Choose_user_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Choose_user_btnActionPerformed(evt);
-            }
-        });
-
-        Choose_diet_btn.setBorder(null);
-        Choose_diet_btn.setText("diet");
-        Choose_diet_btn.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        Choose_diet_btn.setkBorderRadius(30);
-        Choose_diet_btn.setkEndColor(new java.awt.Color(255, 255, 255));
-        Choose_diet_btn.setkFillButton(false);
-        Choose_diet_btn.setkHoverEndColor(new java.awt.Color(51, 102, 255));
-        Choose_diet_btn.setkHoverForeGround(new java.awt.Color(102, 204, 255));
-        Choose_diet_btn.setkHoverStartColor(new java.awt.Color(102, 204, 255));
-        Choose_diet_btn.setkPressedColor(new java.awt.Color(51, 102, 255));
-        Choose_diet_btn.setkStartColor(new java.awt.Color(255, 255, 255));
-        Choose_diet_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Choose_diet_btnMousePressed(evt);
-            }
-        });
-        Choose_diet_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Choose_diet_btnActionPerformed(evt);
-            }
-        });
-
-        publication_name.setBackground(new Color(0,0,0,0));
-        publication_name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        publication_name.setForeground(new java.awt.Color(255, 255, 255));
-        publication_name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        publication_name.setCaretColor(new java.awt.Color(255, 255, 255));
-        publication_name.setEnabled(false);
-        publication_name.setOpaque(false);
-        publication_name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publication_nameActionPerformed(evt);
-            }
-        });
-
-        Publication_name_lbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Publication_name_lbl.setForeground(new java.awt.Color(255, 255, 255));
-        Publication_name_lbl.setText("Publication Name");
-
-        routine_diet_difficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose the difficulty", "Easy", "Medium", "Hard","Challenger" }));
-        routine_diet_difficulty.setToolTipText("Filter");
-        routine_diet_difficulty.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        routine_diet_difficulty.setEnabled(false);
-        routine_diet_difficulty.setName(""); // NOI18N
-        routine_diet_difficulty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                routine_diet_difficultyActionPerformed(evt);
-            }
-        });
-
-        routine_time_per_week.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Days per Week", "2 days", "3 days", "4 days","5 days","6 days" }));
-        routine_time_per_week.setToolTipText("Filter");
-        routine_time_per_week.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        routine_time_per_week.setEnabled(false);
-        routine_time_per_week.setName(""); // NOI18N
-        routine_time_per_week.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                routine_time_per_weekActionPerformed(evt);
-            }
-        });
-
-        Choose_routine_btn.setBorder(null);
-        Choose_routine_btn.setText("Routine");
-        Choose_routine_btn.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        Choose_routine_btn.setkBorderRadius(30);
-        Choose_routine_btn.setkEndColor(new java.awt.Color(255, 255, 255));
-        Choose_routine_btn.setkFillButton(false);
-        Choose_routine_btn.setkHoverEndColor(new java.awt.Color(51, 102, 255));
-        Choose_routine_btn.setkHoverForeGround(new java.awt.Color(102, 204, 255));
-        Choose_routine_btn.setkHoverStartColor(new java.awt.Color(102, 204, 255));
-        Choose_routine_btn.setkPressedColor(new java.awt.Color(51, 102, 255));
-        Choose_routine_btn.setkStartColor(new java.awt.Color(255, 255, 255));
-        Choose_routine_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Choose_routine_btnMousePressed(evt);
-            }
-        });
-        Choose_routine_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Choose_routine_btnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
-        kGradientPanel2.setLayout(kGradientPanel2Layout);
-        kGradientPanel2Layout.setHorizontalGroup(
-            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Username_label1)
-                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(Username_label))
-                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1))
-                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pubblication_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Publication_name_lbl)
-                            .addComponent(publication_name, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(routine_diet_difficulty, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(routine_diet_Type, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(routine_time_per_week, javax.swing.GroupLayout.Alignment.LEADING, 0, 230, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)))
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                        .addComponent(Search_Type_label)
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Choose_routine_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Choose_user_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                                .addComponent(Choose_diet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                        .addGap(135, 135, 135))))
-        );
-        kGradientPanel2Layout.setVerticalGroup(
-            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel4))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Choose_user_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                                .addComponent(Search_Type_label)
-                                .addGap(37, 37, 37))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                                .addComponent(Choose_diet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Choose_routine_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)))))
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addComponent(Username_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Username_label1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pubblication_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Publication_name_lbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(publication_name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(routine_diet_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(routine_diet_difficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(routine_time_per_week, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))))
-        );
-
-        Search.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SearchMousePressed(evt);
-            }
-        });
-        Search.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SearchMousePressed(evt);
-            }
-        });
-        Search.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SearchMousePressed(evt);
-            }
-        });
-        Search.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SearchMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout DiscoverLayout = new javax.swing.GroupLayout(Discover);
-        Discover.setLayout(DiscoverLayout);
-        DiscoverLayout.setHorizontalGroup(
-            DiscoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
-        );
-        DiscoverLayout.setVerticalGroup(
-            DiscoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(Discover, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
 
         kGradientPanel3.setkEndColor(new java.awt.Color(204, 204, 204));
         kGradientPanel3.setkStartColor(new java.awt.Color(51, 51, 51));
@@ -1159,9 +1165,29 @@ public class Home extends javax.swing.JFrame {
         
         subir.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_SubirActionPerformed
+
+    private void SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMouseClicked
+        // TODO add your handling code here:
+        JSONObject obj = new JSONObject();
+        obj.put("username", username.getText());
+        String result = ServerService.sendPost("buscar.php", obj);
+        System.out.println(result);
+        return;
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject;
+        
+        if(result.equals("OK")){
+               Home h =new Home(new Usuario(username.getText(), "", String.valueOf(password.getPassword())));
+                h.setVisible(true);
+                dispose();  
+        }else{
+                
+        }
+    }//GEN-LAST:event_SearchMouseClicked
     private void lblMouseClicked(java.awt.event.MouseEvent evt){
         System.out.println("holaamigos");
-    }        private void bnt1MousePressed(java.awt.event.MouseEvent evt) {                                         
+    }
+    private void bnt1MousePressed(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
         Home h =new Home();
         h.setVisible(true);
@@ -1171,8 +1197,8 @@ public class Home extends javax.swing.JFrame {
     }   private void username_btnMousePressed(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
         home.setVisible(false);
-         Create.setVisible(false);
-         Discover.setVisible(false);
+        Create.setVisible(false);
+        Discover.setVisible(false);
         Ranking.setVisible(false);
         user.setVisible(true);
         

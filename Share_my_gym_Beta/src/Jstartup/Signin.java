@@ -183,15 +183,13 @@ public class Signin extends javax.swing.JFrame {
         String result = ServerService.sendPost("login.php", obj);
         JSONParser parser = new JSONParser();
         JSONObject jsonObject;
-      
-         
-            if(result.equals("OK")){
+        if(result.equals("OK")){
                Home h =new Home(new Usuario(username.getText(), "", String.valueOf(password.getPassword())));
                 h.setVisible(true);
                 dispose();  
-            }else{
+        }else{
                 
-            }
+        }
 
        
        
