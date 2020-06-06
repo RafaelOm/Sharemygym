@@ -8,6 +8,7 @@ package swing;
 
 import Jstartup.Jbuttonrenderizado;
 import Jstartup.Usuario;
+import Upload_System.Upload;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -107,6 +108,13 @@ public class Home extends javax.swing.JFrame {
         Choose_routine_btn = new keeptoo.KButton();
         Create = new javax.swing.JPanel();
         kGradientPanel3 = new keeptoo.KGradientPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        tipo = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pie_foto = new javax.swing.JTextArea();
+        Subir = new javax.swing.JToggleButton();
         Ranking = new javax.swing.JPanel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         user = new javax.swing.JPanel();
@@ -767,15 +775,75 @@ public class Home extends javax.swing.JFrame {
         kGradientPanel3.setkEndColor(new java.awt.Color(204, 204, 204));
         kGradientPanel3.setkStartColor(new java.awt.Color(51, 51, 51));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel5.setText("UPLOAD PUBLICATION");
+
+        jLabel6.setText("Publication Type");
+
+        tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rutina", "Dieta" }));
+        tipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Comment:");
+
+        pie_foto.setColumns(20);
+        pie_foto.setRows(5);
+        jScrollPane1.setViewportView(pie_foto);
+
+        Subir.setText("Upload");
+        Subir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel3Layout = new javax.swing.GroupLayout(kGradientPanel3);
         kGradientPanel3.setLayout(kGradientPanel3Layout);
         kGradientPanel3Layout.setHorizontalGroup(
             kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel5))
+                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel6)
+                        .addGap(28, 28, 28)
+                        .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel12)
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(531, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Subir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(135, 135, 135))
         );
         kGradientPanel3Layout.setVerticalGroup(
             kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel12))
+                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(Subir)
+                .addGap(81, 81, 81))
         );
 
         javax.swing.GroupLayout CreateLayout = new javax.swing.GroupLayout(Create);
@@ -1080,6 +1148,17 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Controllers.Discover
     }//GEN-LAST:event_SearchActionPerformed
+
+    private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoActionPerformed
+
+    private void SubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubirActionPerformed
+        // TODO add your handling code here:
+        Upload subir=new Upload(tipo.getSelectedItem().toString(),pie_foto.getText(),usuarioObj.getEmail(),usuarioObj.getPassword());
+        
+        subir.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_SubirActionPerformed
     private void lblMouseClicked(java.awt.event.MouseEvent evt){
         System.out.println("holaamigos");
     }        private void bnt1MousePressed(java.awt.event.MouseEvent evt) {                                         
@@ -1166,6 +1245,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Ranking_btn;
     private keeptoo.KButton Search;
     private javax.swing.JLabel Search_Type_label;
+    private javax.swing.JToggleButton Subir;
     private javax.swing.JLabel Username_label;
     private javax.swing.JLabel Username_label1;
     private javax.swing.JLabel btn_exit;
@@ -1177,17 +1257,22 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel3;
+    private javax.swing.JTextArea pie_foto;
     private javax.swing.JLabel profile_photo;
     private javax.swing.JTextField pubblication_Date;
     private javax.swing.JTextField publication_name;
@@ -1197,6 +1282,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel side_pane;
     private javax.swing.JTable timeline;
     private javax.swing.JTable timeline1;
+    private javax.swing.JComboBox<String> tipo;
     private javax.swing.JPanel top_panel;
     private javax.swing.JPanel user;
     private javax.swing.JTextField username;

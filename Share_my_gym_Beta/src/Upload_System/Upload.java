@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Frames;
+package Upload_System;
 
+import Controllers.ServerService;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -35,6 +36,8 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 
+import org.json.simple.JSONObject;
+
 /**
  *
  * @author alan_
@@ -46,8 +49,19 @@ public class Upload extends javax.swing.JFrame {
      */
     private String path, absolute_path, name;
     private int returnVal;
+    private String comentario;
+    private String tipo;
+    
+    private String password;
+    private String email;
 
-    public Upload() {
+    public Upload(String commentario,String tipo,String email,String password) {
+        
+        this.comentario=comentario;
+        this.tipo=tipo;
+        
+        this.email=email;
+        this.password=password;
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -132,7 +146,7 @@ public class Upload extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(btnUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,43 +246,32 @@ public class Upload extends javax.swing.JFrame {
         }
 
         System.out.println(result.toString());
+        
+        //MANDAMOS POR OTRO PHP LA DESCRIPCION Y EL TIPO DE RUTINA
+         JSONObject jsonObj = new JSONObject();
+        //Añadimos el id y la puntruacion al JSON
+        jsonObj.put("Tipo",tipo);
+        jsonObj.put("Comentario", comentario);
+        jsonObj.put("email", email);
+        jsonObj.put("password", password);
+        
+        ServerService.sendPost("subir.php",jsonObj);
+    }
+    
+    public void atributos(String commentario,String tipo,String email,String password){
+        this.comentario=comentario;
+        this.tipo=tipo;
+        
+        this.email=email;
+        this.password=password;
+        
     }
 
     /**
      * @param args the command line arguments
      */
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Upload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Upload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Upload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Upload.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Upload().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFind;
