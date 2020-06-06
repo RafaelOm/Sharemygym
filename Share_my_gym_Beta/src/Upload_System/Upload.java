@@ -50,12 +50,12 @@ public class Upload extends javax.swing.JFrame {
     private String path, absolute_path, name;
     private int returnVal;
     private String comentario;
-    private String tipo;
+    private int tipo;
     
     private String password;
     private String email;
 
-    public Upload(String commentario,String tipo,String email,String password) {
+    public Upload(String comentario,int tipo,String email,String password) {
         
         this.comentario=comentario;
         this.tipo=tipo;
@@ -250,22 +250,16 @@ public class Upload extends javax.swing.JFrame {
         //MANDAMOS POR OTRO PHP LA DESCRIPCION Y EL TIPO DE RUTINA
          JSONObject jsonObj = new JSONObject();
         //Añadimos el id y la puntruacion al JSON
-        jsonObj.put("Tipo",tipo);
-        jsonObj.put("Comentario", comentario);
+        jsonObj.put("tipo",tipo);
+        jsonObj.put("desc", comentario);
         jsonObj.put("email", email);
         jsonObj.put("password", password);
+        jsonObj.put("img", result.toString());
         
         ServerService.sendPost("subir.php",jsonObj);
     }
     
-    public void atributos(String commentario,String tipo,String email,String password){
-        this.comentario=comentario;
-        this.tipo=tipo;
-        
-        this.email=email;
-        this.password=password;
-        
-    }
+  
 
     /**
      * @param args the command line arguments
