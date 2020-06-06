@@ -51,8 +51,9 @@ public class Home extends javax.swing.JFrame {
         setColor(Home_btn); 
         ind_1.setOpaque(true);
         resetColor(new JPanel[]{Ranking_btn,Discover_btn,Create_btn}, new JPanel[]{ind_2,ind_3, ind_4});
-        t.ver_tabla(timeline,"Timeline");
-        v.ver_tabla(timeline1,"Discover");
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
+    //t.ver_tabla(timeline,"Timeline");
+       
         // jProgressBar1.setValue(50);
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         int height = pantalla.height;
@@ -72,6 +73,9 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
+        home = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        timeline = new javax.swing.JTable();
         Discover = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -110,9 +114,6 @@ public class Home extends javax.swing.JFrame {
         top_panel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         btn_exit = new javax.swing.JLabel();
-        home = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        timeline = new javax.swing.JTable();
         Create = new javax.swing.JPanel();
         kGradientPanel3 = new keeptoo.KGradientPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -134,6 +135,37 @@ public class Home extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        timeline.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        timeline.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                timelineMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(timeline);
+
+        javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
+        home.setLayout(homeLayout);
+        homeLayout.setHorizontalGroup(
+            homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
+        );
+        homeLayout.setVerticalGroup(
+            homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
 
         Discover.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -465,7 +497,7 @@ public class Home extends javax.swing.JFrame {
         );
         DiscoverLayout.setVerticalGroup(
             DiscoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, Short.MAX_VALUE)
         );
 
         getContentPane().add(Discover, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
@@ -748,37 +780,6 @@ public class Home extends javax.swing.JFrame {
         );
 
         getContentPane().add(top_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 950, 50));
-
-        timeline.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        timeline.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                timelineMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(timeline);
-
-        javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
-        home.setLayout(homeLayout);
-        homeLayout.setHorizontalGroup(
-            homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
-        );
-        homeLayout.setVerticalGroup(
-            homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
 
         kGradientPanel3.setkEndColor(new java.awt.Color(204, 204, 204));
         kGradientPanel3.setkStartColor(new java.awt.Color(51, 51, 51));
@@ -1177,13 +1178,8 @@ public class Home extends javax.swing.JFrame {
             JSONParser parser = new JSONParser();
             try {  
                 JSONArray jArray = (JSONArray) parser.parse(result);
-                for(int i=0;i<jArray.size();i++){
-                    //JELem = jArray.get();
-                    JSONArray jCurrent = (JSONArray) jArray.get(i);
-                    
-                    JOptionPane.showMessageDialog(null, jCurrent.toString(), "Información", JOptionPane.INFORMATION_MESSAGE);
-                    //timeline.add
-                }
+            
+                v.ver_tabla(timeline1,"Discover",jArray);
             } catch (ParseException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
