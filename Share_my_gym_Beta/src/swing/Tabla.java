@@ -29,7 +29,7 @@ public class Tabla{
     private List<String> imagenes= new LinkedList<String>();
     
     
-    public void ver_tabla(JTable tabla,String Type,JSONArray jArray) throws IOException{
+    public List ver_tabla(JTable tabla,String Type,JSONArray jArray) throws IOException{//devuelve images
         
         tabla.setDefaultRenderer(Object.class, new Render());
         ImageIcon water = new ImageIcon("C:\\Users\\Rafael_Ordonez\\Desktop\\Share_my_gym_Beta\\src\\swing\\images\\icons8_LinkedIn_96px.png");
@@ -68,12 +68,9 @@ public class Tabla{
             
         }else{//APARTADO DE BUSQUEDA
             
-              InputStream input = new URL("https://39383197.servicio-online.net/images/716084.jpg").openStream();
-                 BufferedImage image = ImageIO.read(input);
-                  Image newimg = image.getScaledInstance( 50, 60,  java.awt.Image.SCALE_SMOOTH ) ;
-                 ImageIcon HOLA = new ImageIcon(newimg);
+             
                  
-            JButton boton_hola = new JButton(HOLA);
+            JButton boton_hola = new JButton("HOLA");
             JButton boton_adios = new JButton("adios");
             boton_hola.setName("hola");
             boton_adios.setName("adios");
@@ -102,26 +99,79 @@ public class Tabla{
                     //JELem = jArray.get();
                     JSONArray jCurrent = (JSONArray) jArray.get(i);
                     String imagen="";
-                    Scanner sc = new Scanner(jCurrent.toString());
-                    while(sc.hasNext()){
-                        imagen=sc.next();
-                    }//la ultima posicion es la direccion de la imagen en el servidor
-                    imagenes.add(imagen);
+                   
+                    imagenes.add(jCurrent.get(2).toString());
+                    descripciones.add
+                  
                     JOptionPane.showMessageDialog(null, jCurrent.toString(), "Información", JOptionPane.INFORMATION_MESSAGE);
                     //timeline.add
                 }
-               
                  
-               /* for(int j=0;j<imagenes.size();j++){
-                    saveImage(imagenes.get(j));
-                }
+                  Object[][] busqueda=new Object[10][2] ;
+                  int indice=0;
+                  boolean completo=false;
+                 for(int i=0;i<10;i++){
+                     for(int j=0;j<2;j++){
+                         if(!completo){
+                                   InputStream input = new URL("https://39383197.servicio-online.net/"+imagenes.get(indice)).openStream();
+                            BufferedImage image = ImageIO.read(input);
+                            Image newimg = image.getScaledInstance( 70, 80,  java.awt.Image.SCALE_SMOOTH ) ;
+                            ImageIcon icon = new ImageIcon(newimg);
+                             JButton btn = new JButton(icon);
+                             btn.setName("descripcion");
+                         busqueda[i][j]=btn;
+                         
+                         indice++;
+                         }else{
+                             busqueda[i][j]= new JButton(" ");
+                         }
+                      
+                         if(imagenes.size()==indice){
+                             completo=true;
+                         }
+                     }
+                      
+                 }
+                 
+                 
+                 
+                 /*
+                 
+                 InputStream input = new URL("https://39383197.servicio-online.net/"+imagenes.get(0)).openStream();
+                 BufferedImage image = ImageIO.read(input);
+                  Image newimg = image.getScaledInstance( 70, 80,  java.awt.Image.SCALE_SMOOTH ) ;
+                 ImageIcon icon = new ImageIcon(newimg);
+                 
+                 InputStream input1 = new URL("https://39383197.servicio-online.net/"+imagenes.get(1)).openStream();
+                 BufferedImage image1 = ImageIO.read(input1);
+                  Image newimg1 = image.getScaledInstance( 50, 60,  java.awt.Image.SCALE_SMOOTH ) ;
+                 ImageIcon icon1 = new ImageIcon(newimg);
                 
-                imagen1= new ImageIcon("\images"+imagenes.get(0));
-            */
-               
+                 InputStream input2 = new URL("https://39383197.servicio-online.net/"+imagenes.get(2)).openStream();
+                 BufferedImage image2 = ImageIO.read(input);
+                  Image newimg2 = image.getScaledInstance( 50, 60,  java.awt.Image.SCALE_SMOOTH ) ;
+                 ImageIcon icon2 = new ImageIcon(newimg);
+                 /*
+                 InputStream input3 = new URL("https://39383197.servicio-online.net/"+imagenes.get(3)).openStream();
+                 BufferedImage image3 = ImageIO.read(input);
+                  Image newimg3 = image.getScaledInstance( 50, 60,  java.awt.Image.SCALE_SMOOTH ) ;
+                 ImageIcon icon3 = new ImageIcon(newimg);
+                 
+                 InputStream input4 = new URL("https://39383197.servicio-online.net/"+imagenes.get(4)).openStream();
+                 BufferedImage image4 = ImageIO.read(input);
+                  Image newimg4 = image.getScaledInstance( 50, 60,  java.awt.Image.SCALE_SMOOTH ) ;
+                 ImageIcon icon4 = new ImageIcon(newimg);
+                 
+                   JButton btn__ = new JButton(icon);
+                    btn1.setName("descripcion");
+                    JButton btnhh = new JButton(icon);
+                    btn1.setName("descripcion");
+                     JButton btnhhh = new JButton(icon2);
+                    btn1.setName("descripcion");
+               */
              DefaultTableModel d = new DefaultTableModel
             (
-                    new Object[][]{{btn1,btn1},{boton_hola,boton_adios},{boton_hola,btn1},{btn2,btn3},{btn1,btn1},{btn3,btn2}},
+                    busqueda,
                     new Object[]{"col_1","col_2"}
             )
             {
@@ -129,7 +179,7 @@ public class Tabla{
                     return false;
                 }
             };
-                
+              
                 tabla.setModel(d);
                 tabla.setCellSelectionEnabled(false);
        
@@ -143,7 +193,7 @@ public class Tabla{
        
         
         
-  
+            return imagenes;
 
     }
 }

@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.*; 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -125,6 +126,7 @@ public class Home extends javax.swing.JFrame {
         Subir = new javax.swing.JToggleButton();
         Ranking = new javax.swing.JPanel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
+        jLabel13 = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -868,15 +870,24 @@ public class Home extends javax.swing.JFrame {
 
         getContentPane().add(Create, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
 
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel13.setText("TOP 10 RANKING");
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(jLabel13)
+                .addContainerGap(604, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel13)
+                .addContainerGap(456, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout RankingLayout = new javax.swing.GroupLayout(Ranking);
@@ -1052,7 +1063,7 @@ public class Home extends javax.swing.JFrame {
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
                    
-                if(boton.getName().equals("hola")){
+                if(boton.getName().equals("descripcion")){
                     System.out.println("holaaaa");
                     //EVENTOS MODIFICAR
                 }else{
@@ -1182,6 +1193,8 @@ public class Home extends javax.swing.JFrame {
                 v.ver_tabla(timeline1,"Discover",jArray);
             } catch (ParseException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -1289,6 +1302,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
