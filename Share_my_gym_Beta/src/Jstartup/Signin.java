@@ -5,10 +5,16 @@
  */
 package Jstartup;
 
+import Controllers.ServerService;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import swing.Home;
 
 /**
@@ -169,11 +175,28 @@ public class Signin extends javax.swing.JFrame {
     }//GEN-LAST:event_signinActionPerformed
   private void signinMousePressed(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
-        Home h =new Home();
-        h.setVisible(true);
-        dispose();
+        JSONObject obj = new JSONObject();
+        obj.put("username", username.getText());
+        obj.put("password", String.valueOf(password.getPassword()));
         
-        
+        String result = ServerService.sendPost("login.php", obj);
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject;
+        try {
+            jsonObject = (JSONObject) parser.parse(result);
+            String status = (String) jsonObject.get("status");
+            String email = (String) jsonObject.get("email");
+            if(result.equals("OK")){
+               Home h =new Home(new Usuario(username.getText(), "", String.valueOf(password.getPassword())));
+                h.setVisible(true);
+                dispose();  
+            }
+
+        } catch (ParseException ex) {
+            Logger.getLogger(Signin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       
     }                                        
 
     

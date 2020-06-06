@@ -33,12 +33,12 @@ public class Signup extends javax.swing.JFrame {
         //this.setIconImage(new ImageIcon(getClass().getResource("/IMAGENES/ICON.jpg")).getImage());
         
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-      int height = pantalla.height;
-      int width = pantalla.width;
+        int height = pantalla.height;
+        int width = pantalla.width;
       //setSize(435,560);		
  
-      setLocationRelativeTo(null);		
-      setVisible(true);
+        setLocationRelativeTo(null);		
+        setVisible(true);
     }
 
     /**

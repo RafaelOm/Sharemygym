@@ -7,6 +7,7 @@ package swing;
 
 
 import Jstartup.Jbuttonrenderizado;
+import Jstartup.Usuario;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -27,9 +28,18 @@ public class Home extends javax.swing.JFrame {
      */
     Tabla t = new Tabla();
     Tabla v = new Tabla();
+    Usuario usuarioObj;
     public Home() {
+        this(null);
+    }
+
+    public Home(Usuario user){
         initComponents();
-      
+        if(user!=null){
+            this.usuarioObj = user;
+        }else{
+            this.usuarioObj = new Usuario("invitado", "guest@guest.com", "");
+        }
         setColor(Home_btn); 
         ind_1.setOpaque(true);
         resetColor(new JPanel[]{Ranking_btn,Discover_btn,Create_btn}, new JPanel[]{ind_2,ind_3, ind_4});
@@ -41,10 +51,9 @@ public class Home extends javax.swing.JFrame {
         int width = pantalla.width;
         // setSize(400,500);		
  
-      setLocationRelativeTo(null);		
-      setVisible(true);
+        setLocationRelativeTo(null);		
+        setVisible(true);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,7 +124,7 @@ public class Home extends javax.swing.JFrame {
         side_pane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Home_btn.setBackground(new java.awt.Color(0, 0, 0));
-        Home_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Home_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Home_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Home_btnMousePressed(evt);
@@ -164,7 +173,7 @@ public class Home extends javax.swing.JFrame {
         side_pane.add(Home_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 120, -1));
 
         Ranking_btn.setBackground(new java.awt.Color(23, 35, 51));
-        Ranking_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Ranking_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Ranking_btn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Ranking_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -214,7 +223,7 @@ public class Home extends javax.swing.JFrame {
         side_pane.add(Ranking_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 120, -1));
 
         Discover_btn.setBackground(new java.awt.Color(0, 0, 0));
-        Discover_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Discover_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Discover_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Discover_btnMousePressed(evt);
@@ -263,7 +272,7 @@ public class Home extends javax.swing.JFrame {
         side_pane.add(Discover_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 120, -1));
 
         Create_btn.setBackground(new java.awt.Color(23, 35, 51));
-        Create_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Create_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Create_btn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Create_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -315,7 +324,7 @@ public class Home extends javax.swing.JFrame {
         profile_photo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         profile_photo.setForeground(new java.awt.Color(255, 255, 255));
         profile_photo.setText("FOTO");
-        side_pane.add(profile_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        side_pane.add(profile_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 70, 30));
 
         username_btn.setBorder(null);
         username_btn.setText("@holahola");
@@ -359,7 +368,7 @@ public class Home extends javax.swing.JFrame {
         jLabel7.setText("Share my gym");
 
         btn_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Exit_25px.png"))); // NOI18N
-        btn_exit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_exit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btn_exitMousePressed(evt);
@@ -427,7 +436,7 @@ public class Home extends javax.swing.JFrame {
         kGradientPanel2.setkStartColor(new java.awt.Color(102, 102, 102));
         kGradientPanel2.setName("Publication Date"); // NOI18N
 
-        jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         timeline1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -450,8 +459,6 @@ public class Home extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 60)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Discover");
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rafael_Ordonez\\Desktop\\Sharemygym_git\\Sharemygym\\Share_my_gym_Beta\\src\\swing\\images\\buscar.png")); // NOI18N
 
         username.setBackground(new Color(0,0,0,0));
         username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -748,16 +755,17 @@ public class Home extends javax.swing.JFrame {
         Discover.setLayout(DiscoverLayout);
         DiscoverLayout.setHorizontalGroup(
             DiscoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
+            .addComponent(kGradientPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
         );
         DiscoverLayout.setVerticalGroup(
             DiscoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+            .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
         );
 
         getContentPane().add(Discover, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
 
-        kGradientPanel3.setkEndColor(new java.awt.Color(204, 0, 0));
+        kGradientPanel3.setkEndColor(new java.awt.Color(204, 204, 204));
+        kGradientPanel3.setkStartColor(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout kGradientPanel3Layout = new javax.swing.GroupLayout(kGradientPanel3);
         kGradientPanel3.setLayout(kGradientPanel3Layout);
