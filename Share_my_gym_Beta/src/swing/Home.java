@@ -1041,8 +1041,9 @@ public class Home extends javax.swing.JFrame {
             if(value instanceof JButton){
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
-
-               JOptionPane.showConfirmDialog(null, boton.getName(), "Descripcion", JOptionPane.OK_CANCEL_OPTION);
+                likes_comments_gui gui= new likes_comments_gui(boton.getName(),usuarioObj);
+                gui.setVisible(true);
+                gui.setDefaultCloseOperation(0);
             }
             if(value instanceof JCheckBox){
                 //((JCheckBox)value).doClick();
@@ -1071,9 +1072,9 @@ public class Home extends javax.swing.JFrame {
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
                    
-                     
-                       JOptionPane.showConfirmDialog(null, boton.getName(), "Descripcion", JOptionPane.OK_CANCEL_OPTION);
-            
+                     likes_comments_gui gui= new likes_comments_gui(boton.getName(),usuarioObj);
+                       gui.setVisible(true);
+                        gui.setDefaultCloseOperation(0);
             }
             if(value instanceof JCheckBox){
                 //((JCheckBox)value).doClick();

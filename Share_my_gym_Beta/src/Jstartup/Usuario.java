@@ -13,6 +13,7 @@ public class Usuario {
     private String usuario;
     private String email;
     private String password;
+    
     public Usuario(String u, String e, String p){
         this.usuario=u;
         this.email=e;

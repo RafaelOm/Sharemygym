@@ -92,6 +92,11 @@ public class Signin extends javax.swing.JFrame {
                 signinActionPerformed(evt);
             }
         });
+        signin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                signinKeyPressed(evt);
+            }
+        });
         kGradientPanel1.add(signin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 150, -1));
         signin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -174,6 +179,11 @@ public class Signin extends javax.swing.JFrame {
        
              
     }//GEN-LAST:event_signinActionPerformed
+
+    private void signinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signinKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_signinKeyPressed
   private void signinMousePressed(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
         JSONObject obj = new JSONObject();

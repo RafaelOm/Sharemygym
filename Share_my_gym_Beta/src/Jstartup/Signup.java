@@ -213,15 +213,14 @@ public class Signup extends javax.swing.JFrame {
             if(!p1.equals(p2)){
                 JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.", "Información", JOptionPane.INFORMATION_MESSAGE);
             }else{
-                try {
+               
                     if(registrar(u,e,p1)){
-                        Home h =new Home();
+                        Signin h =new Signin();
                         h.setVisible(true);
                         dispose();
+                        
                     }
-                } catch (NoSuchAlgorithmException ex) {
-                   
-                }
+               
                 
             }
             
@@ -232,7 +231,7 @@ public class Signup extends javax.swing.JFrame {
         
         
     } 
-    private boolean registrar(String usuario,String email,String contrasena) throws NoSuchAlgorithmException{
+    private boolean registrar(String usuario,String email,String contrasena){
         JSONObject obj = new JSONObject();
         obj.put("username", usuario);
         obj.put("email", email);

@@ -84,6 +84,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signinActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="signinKeyPressed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="signin.addMouseListener(new java.awt.event.MouseAdapter() {&#xa;    public void mousePressed(java.awt.event.MouseEvent evt) {&#xa;        signinMousePressed(evt);&#xa;    }&#xa;});"/>
