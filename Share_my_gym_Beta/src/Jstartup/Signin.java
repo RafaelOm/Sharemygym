@@ -27,7 +27,7 @@ public class Signin extends javax.swing.JFrame {
      * Creates new form startup
      */
     public Signin() {
-       
+        
        // super("Centrar JFrame");
         initComponents();
         this.setTitle("Log in");
@@ -183,19 +183,16 @@ public class Signin extends javax.swing.JFrame {
         String result = ServerService.sendPost("login.php", obj);
         JSONParser parser = new JSONParser();
         JSONObject jsonObject;
-        try {
-            jsonObject = (JSONObject) parser.parse(result);
-            String status = (String) jsonObject.get("status");
-            String email = (String) jsonObject.get("email");
+      
+         
             if(result.equals("OK")){
                Home h =new Home(new Usuario(username.getText(), "", String.valueOf(password.getPassword())));
                 h.setVisible(true);
                 dispose();  
+            }else{
+                
             }
 
-        } catch (ParseException ex) {
-            Logger.getLogger(Signin.class.getName()).log(Level.SEVERE, null, ex);
-        }
        
        
     }                                        
