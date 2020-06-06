@@ -14,12 +14,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.*; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -70,10 +74,10 @@ public class Home extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Discover = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        timeline1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        timeline1 = new javax.swing.JTable();
         username = new javax.swing.JTextField();
         Username_label = new javax.swing.JLabel();
         pubblication_Date = new javax.swing.JTextField();
@@ -137,6 +141,10 @@ public class Home extends javax.swing.JFrame {
         kGradientPanel2.setkStartColor(new java.awt.Color(102, 102, 102));
         kGradientPanel2.setName("Publication Date"); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 60)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Discover");
+
         jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         timeline1.setModel(new javax.swing.table.DefaultTableModel(
@@ -156,10 +164,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(timeline1);
-
-        jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 60)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Discover");
 
         username.setBackground(new Color(0,0,0,0));
         username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -354,9 +358,6 @@ public class Home extends javax.swing.JFrame {
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Username_label1)
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(Username_label))
-                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
                                 .addGap(69, 69, 69)
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
@@ -368,8 +369,9 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(routine_diet_difficulty, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(routine_diet_Type, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(routine_time_per_week, javax.swing.GroupLayout.Alignment.LEADING, 0, 230, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)))
+                                .addComponent(routine_time_per_week, javax.swing.GroupLayout.Alignment.LEADING, 0, 230, Short.MAX_VALUE))
+                            .addComponent(Username_label))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)))
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1167,22 +1169,28 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_SubirActionPerformed
 
     private void SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMouseClicked
-        // TODO add your handling code here:
         JSONObject obj = new JSONObject();
         obj.put("username", username.getText());
+               
         String result = ServerService.sendPost("buscar.php", obj);
-        System.out.println(result);
-        return;
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObject;
-        
-        if(result.equals("OK")){
-               Home h =new Home(new Usuario(username.getText(), "", String.valueOf(password.getPassword())));
-                h.setVisible(true);
-                dispose();  
-        }else{
-                
+        if(!result.equals("ZERO_RESULTS")){
+            JSONParser parser = new JSONParser();
+            try {  
+                JSONArray jArray = (JSONArray) parser.parse(result);
+                for(int i=0;i<jArray.size();i++){
+                    //JELem = jArray.get();
+                    JSONArray jCurrent = (JSONArray) jArray.get(i);
+                    
+                    JOptionPane.showMessageDialog(null, jCurrent.toString(), "Información", JOptionPane.INFORMATION_MESSAGE);
+                    //timeline.add
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
+        
+             
     }//GEN-LAST:event_SearchMouseClicked
     private void lblMouseClicked(java.awt.event.MouseEvent evt){
         System.out.println("holaamigos");
@@ -1194,7 +1202,8 @@ public class Home extends javax.swing.JFrame {
         dispose();
         
         
-    }   private void username_btnMousePressed(java.awt.event.MouseEvent evt) {                                         
+    }
+    private void username_btnMousePressed(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
         home.setVisible(false);
         Create.setVisible(false);
