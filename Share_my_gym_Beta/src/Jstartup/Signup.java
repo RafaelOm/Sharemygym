@@ -256,7 +256,7 @@ public class Signup extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cuenta registrada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
             return true;
         }else if(result.equals("YA_EXISTE")){
-            JOptionPane.showMessageDialog(null, "Ya existe un usuario registrado con ese email.", "Información", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ya existe un usuario registrado con este Nombre Usuario.", "Información", JOptionPane.ERROR_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(null, "ERROR: " + result, "Información", JOptionPane.ERROR_MESSAGE);
         } 

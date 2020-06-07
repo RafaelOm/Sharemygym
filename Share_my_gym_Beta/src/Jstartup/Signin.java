@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -212,7 +213,7 @@ public class Signin extends javax.swing.JFrame {
             h.setVisible(true);
             dispose();  
         }else{
-     
+                 JOptionPane.showMessageDialog(null, "ERROR: Usuario o contrasena incorrecta " + result, "Información", JOptionPane.ERROR_MESSAGE);
         }
 
        

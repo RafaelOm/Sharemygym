@@ -1352,14 +1352,16 @@ public class Home extends javax.swing.JFrame {
 
     private void SubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubmitMouseClicked
         // TODO add your handling code here:
+        
          JSONObject obj = new JSONObject();
         obj.put("update", "1");
         obj.put("username", usuarioObj.getUser());
         obj.put("name", modify_name.getText());
         obj.put("surnames", modify_surname.getText());
         obj.put("bio", modify_bio.getText());
-       
-        String result = ServerService.sendPost("profile.php", obj);
+       metodos m =new metodos();
+       m.modificar_datos(obj);
+        
         
     }//GEN-LAST:event_SubmitMouseClicked
 
