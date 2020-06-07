@@ -1199,7 +1199,7 @@ public class Home extends javax.swing.JFrame {
                 obj.put("publicacion", boton.getName());
                 String result = ServerService.sendPost("verlikes.php", obj);   
                 
-                     likes_comments_gui gui= new likes_comments_gui(comment,usuarioObj,comment,result);
+                     likes_comments_gui gui= new likes_comments_gui(comment,usuarioObj,boton.getName(),result);
                        gui.setVisible(true);
                         gui.setDefaultCloseOperation(0);
             }
