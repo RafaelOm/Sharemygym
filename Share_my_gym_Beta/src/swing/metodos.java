@@ -16,14 +16,22 @@ public class metodos {
     
   
     
-    public void modificar_datos(JSONObject obj){
+    public String modificar_datos_usuario(JSONObject obj){
         String result = ServerService.sendPost("profile.php", obj);
+        return result;
+    }
+    
+    public String devolver_datos_usuario(JSONObject obj){
+        String result = ServerService.sendPost("profile.php", obj);
+        return result;
     }
     
     public void darLike(JSONObject obj){
         ServerService.sendPost("likes.php",obj);
     }
     
-    
-    
+    public String verLikes(JSONObject obj){
+        return ServerService.sendPost("verlikes.php", obj);
+    }
+
 }

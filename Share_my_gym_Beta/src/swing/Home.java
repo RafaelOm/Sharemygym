@@ -1150,7 +1150,8 @@ public class Home extends javax.swing.JFrame {
                 
                 JSONObject obj = new JSONObject();
                 obj.put("publicacion", boton.getName());
-                String result = ServerService.sendPost("verlikes.php", obj);
+               
+                String result = new metodos().verLikes(obj);
              
         
                 likes_comments_gui gui= new likes_comments_gui(comment,usuarioObj,boton.getName(),result);
@@ -1360,7 +1361,7 @@ public class Home extends javax.swing.JFrame {
         obj.put("surnames", modify_surname.getText());
         obj.put("bio", modify_bio.getText());
        metodos m =new metodos();
-       m.modificar_datos(obj);
+       m.modificar_datos_usuario(obj);
         
         
     }//GEN-LAST:event_SubmitMouseClicked
