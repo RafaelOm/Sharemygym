@@ -7,7 +7,7 @@
 		$usuario = $jsonarray[0]["username"];
 		$email = $jsonarray[0]["email"];
 		$password = md5($jsonarray[0]["password"]);
-		$consulta_sql = "SELECT email FROM users WHERE email = '".$email."';";
+		$consulta_sql = "SELECT username FROM users WHERE username = '".$usuario."';";
 		
 		$login = mysqli_query($mysqli,$consulta_sql);
 		
