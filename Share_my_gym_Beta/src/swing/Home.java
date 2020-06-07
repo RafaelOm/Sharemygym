@@ -43,8 +43,9 @@ public class Home extends javax.swing.JFrame {
      */
     Tabla t = new Tabla();
     Tabla v ;
+    tabla_ranking ranking_table;
     Usuario usuarioObj;
-    public Home() {
+    public Home()  {
         this(null);
     }
 
@@ -99,6 +100,9 @@ public class Home extends javax.swing.JFrame {
             } catch (ParseException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            ranking_table=new tabla_ranking();
+            ranking_table.ver_tabla(ranking, ranking_matriz);
               for(int i=0;i<10;i++){
                 for(int j=0;j<2;j++){
                  System.out.println(ranking_matriz[i][j]);
@@ -176,7 +180,23 @@ public class Home extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         ranking = new javax.swing.JTable();
         user = new javax.swing.JPanel();
+        User_label = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        user_user = new javax.swing.JLabel();
+        name_user = new javax.swing.JLabel();
+        surname_user = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        biografia = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        Submit = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         jLabel3.setText("jLabel3");
 
@@ -867,23 +887,144 @@ public class Home extends javax.swing.JFrame {
 
         getContentPane().add(Ranking, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
 
-        jLabel2.setText("user");
+        User_label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        User_label.setText("User:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Name:");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel14.setText("Surname:");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setText("MODIFY YOUR PERSONAL DATA:");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel16.setText("Name:");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel17.setText("Surname:");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel18.setText("Biography:");
+
+        biografia.setText("jLabel19");
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel19.setText("Biography:");
+
+        Submit.setText("Submit");
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane5.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout userLayout = new javax.swing.GroupLayout(user);
         user.setLayout(userLayout);
         userLayout.setHorizontalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userLayout.createSequentialGroup()
-                .addGap(356, 356, 356)
-                .addComponent(jLabel2)
-                .addContainerGap(569, Short.MAX_VALUE))
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userLayout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(userLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(name_user, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(329, 329, 329)
+                                .addComponent(biografia))
+                            .addGroup(userLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(surname_user, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(userLayout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addGroup(userLayout.createSequentialGroup()
+                                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel16))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                                    .addComponent(jTextField2)))))
+                    .addGroup(userLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(jLabel18)
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userLayout.createSequentialGroup()
+                .addGap(0, 150, Short.MAX_VALUE)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userLayout.createSequentialGroup()
+                        .addComponent(User_label)
+                        .addGap(18, 18, 18)
+                        .addComponent(user_user, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(590, 590, 590))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userLayout.createSequentialGroup()
+                        .addComponent(Submit)
+                        .addGap(125, 125, 125))))
+            .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userLayout.createSequentialGroup()
+                    .addContainerGap(581, Short.MAX_VALUE)
+                    .addComponent(jLabel19)
+                    .addGap(284, 284, 284)))
         );
         userLayout.setVerticalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userLayout.createSequentialGroup()
-                .addGap(287, 287, 287)
-                .addComponent(jLabel2)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addGap(64, 64, 64)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(User_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(user_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(name_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(biografia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14)
+                    .addComponent(surname_user, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(112, 112, 112)
+                .addComponent(jLabel15)
+                .addGap(37, 37, 37)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(Submit)
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userLayout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userLayout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addGap(54, 54, 54))))))
+            .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(userLayout.createSequentialGroup()
+                    .addGap(114, 114, 114)
+                    .addComponent(jLabel19)
+                    .addContainerGap(408, Short.MAX_VALUE)))
         );
 
         getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
@@ -1187,10 +1328,14 @@ public class Home extends javax.swing.JFrame {
         
              
     }//GEN-LAST:event_SearchMouseClicked
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
     private void lblMouseClicked(java.awt.event.MouseEvent evt){
         System.out.println("holaamigos");
     }
-    private void bnt1MousePressed(java.awt.event.MouseEvent evt){                                         
+    private void bnt1MousePressed(java.awt.event.MouseEvent evt) throws IOException{                                         
         // TODO add your handling code here:
         Home h =new Home();
         h.setVisible(true);
@@ -1275,7 +1420,10 @@ public class Home extends javax.swing.JFrame {
     private keeptoo.KButton Search;
     private javax.swing.JLabel Search_Type_label;
     private javax.swing.JToggleButton Subir;
+    private javax.swing.JButton Submit;
+    private javax.swing.JLabel User_label;
     private javax.swing.JLabel Username_label;
+    private javax.swing.JLabel biografia;
     private javax.swing.JLabel btn_exit;
     private javax.swing.JTable busqueda_table;
     private javax.swing.JPanel home;
@@ -1288,6 +1436,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1300,16 +1454,23 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel3;
+    private javax.swing.JLabel name_user;
     private javax.swing.JTextArea pie_foto;
     private javax.swing.JTable ranking;
     private javax.swing.JPanel side_pane;
+    private javax.swing.JLabel surname_user;
     private javax.swing.JTable timeline;
     private javax.swing.JComboBox<String> tipo;
     private javax.swing.JPanel top_panel;
     private javax.swing.JPanel user;
+    private javax.swing.JLabel user_user;
     private javax.swing.JTextField username;
     private keeptoo.KButton username_btn;
     // End of variables declaration//GEN-END:variables
