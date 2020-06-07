@@ -102,7 +102,7 @@ public class Tabla{
             
         }else{//APARTADO DE BUSQUEDA
             
-             
+            
                  tabla.removeAll();
                  for(int i=0;i<jArray.size();i++){
                     //JELem = jArray.get();

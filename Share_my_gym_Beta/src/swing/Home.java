@@ -36,11 +36,13 @@ public class Home extends javax.swing.JFrame {
     
     private java.util.List<imagen> imagenes_busqueda= new LinkedList<imagen>();
     private java.util.List<imagen> imagenes_timeline= new LinkedList<imagen>();
+    private  String ranking_array;
+    private String[][] ranking_matriz=new String[10][2];
     /**
      * Creates new form Home
      */
     Tabla t = new Tabla();
-    Tabla v = new Tabla();
+    Tabla v ;
     Usuario usuarioObj;
     public Home() {
         this(null);
@@ -58,7 +60,7 @@ public class Home extends javax.swing.JFrame {
         resetColor(new JPanel[]{Ranking_btn,Discover_btn,Create_btn}, new JPanel[]{ind_2,ind_3, ind_4});
    
        
-        // jProgressBar1.setValue(50);
+      
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         int height = pantalla.height;
         int width = pantalla.width;
@@ -80,6 +82,37 @@ public class Home extends javax.swing.JFrame {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        //OBTENEMOS E INSERTAMOS RANKING EN LA TABLA
+        
+        
+        ranking_array = ServerService.sendPost("ranking.php", obj);
+         JSONParser parser = new JSONParser();
+            try {  
+                JSONArray jArray = (JSONArray) parser.parse(ranking_array);
+                Object array_array[]=jArray.toArray();
+                
+                for(int w=0;w<array_array.length;w++){
+                    JSONArray c =(JSONArray) array_array[w];
+                    ranking_matriz[w][0]=(String) c.get(0);
+                   ranking_matriz[w][1]=(String) c.get(1);
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+              for(int i=0;i<10;i++){
+                for(int j=0;j<2;j++){
+                 System.out.println(ranking_matriz[i][j]);
+                }
+              }
+            
+        
+       /* 
+        for(int i=0;i<10;i++){
+                for(int j=0;j<2;j++){
+                    ranking_matriz[i][j]=
+                }
+        }
+        */
         
        username_btn.setText("@"+usuarioObj.getUser());
         setLocationRelativeTo(null);		
@@ -106,17 +139,10 @@ public class Home extends javax.swing.JFrame {
         busqueda_table = new javax.swing.JTable();
         username = new javax.swing.JTextField();
         Username_label = new javax.swing.JLabel();
-        pubblication_Date = new javax.swing.JTextField();
-        Username_label1 = new javax.swing.JLabel();
         Search = new keeptoo.KButton();
-        routine_diet_Type = new javax.swing.JComboBox<>();
         Search_Type_label = new javax.swing.JLabel();
         Choose_user_btn = new keeptoo.KButton();
         Choose_diet_btn = new keeptoo.KButton();
-        publication_name = new javax.swing.JTextField();
-        Publication_name_lbl = new javax.swing.JLabel();
-        routine_diet_difficulty = new javax.swing.JComboBox<>();
-        routine_time_per_week = new javax.swing.JComboBox<>();
         Choose_routine_btn = new keeptoo.KButton();
         side_pane = new javax.swing.JPanel();
         Home_btn = new javax.swing.JPanel();
@@ -131,7 +157,6 @@ public class Home extends javax.swing.JFrame {
         Create_btn = new javax.swing.JPanel();
         ind_4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        profile_photo = new javax.swing.JLabel();
         username_btn = new keeptoo.KButton();
         top_panel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -149,7 +174,7 @@ public class Home extends javax.swing.JFrame {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ranking = new javax.swing.JTable();
         user = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -239,23 +264,6 @@ public class Home extends javax.swing.JFrame {
         Username_label.setForeground(new java.awt.Color(255, 255, 255));
         Username_label.setText("username");
 
-        pubblication_Date.setBackground(new Color(0,0,0,0));
-        pubblication_Date.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pubblication_Date.setForeground(new java.awt.Color(255, 255, 255));
-        pubblication_Date.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        pubblication_Date.setCaretColor(new java.awt.Color(255, 255, 255));
-        pubblication_Date.setEnabled(false);
-        pubblication_Date.setOpaque(false);
-        pubblication_Date.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pubblication_DateActionPerformed(evt);
-            }
-        });
-
-        Username_label1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Username_label1.setForeground(new java.awt.Color(255, 255, 255));
-        Username_label1.setText("Publication Date(dd/mm/YYYY)");
-
         Search.setBorder(null);
         Search.setText("Search");
         Search.setkBorderRadius(30);
@@ -277,17 +285,6 @@ public class Home extends javax.swing.JFrame {
         Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchActionPerformed(evt);
-            }
-        });
-
-        routine_diet_Type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Type", "Day", "Noon", "Breakfast" }));
-        routine_diet_Type.setToolTipText("Filter");
-        routine_diet_Type.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        routine_diet_Type.setEnabled(false);
-        routine_diet_Type.setName(""); // NOI18N
-        routine_diet_Type.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                routine_diet_TypeActionPerformed(evt);
             }
         });
 
@@ -339,45 +336,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        publication_name.setBackground(new Color(0,0,0,0));
-        publication_name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        publication_name.setForeground(new java.awt.Color(255, 255, 255));
-        publication_name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        publication_name.setCaretColor(new java.awt.Color(255, 255, 255));
-        publication_name.setEnabled(false);
-        publication_name.setOpaque(false);
-        publication_name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publication_nameActionPerformed(evt);
-            }
-        });
-
-        Publication_name_lbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Publication_name_lbl.setForeground(new java.awt.Color(255, 255, 255));
-        Publication_name_lbl.setText("Publication Name");
-
-        routine_diet_difficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose the difficulty", "Easy", "Medium", "Hard","Challenger" }));
-        routine_diet_difficulty.setToolTipText("Filter");
-        routine_diet_difficulty.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        routine_diet_difficulty.setEnabled(false);
-        routine_diet_difficulty.setName(""); // NOI18N
-        routine_diet_difficulty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                routine_diet_difficultyActionPerformed(evt);
-            }
-        });
-
-        routine_time_per_week.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Days per Week", "2 days", "3 days", "4 days","5 days","6 days" }));
-        routine_time_per_week.setToolTipText("Filter");
-        routine_time_per_week.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        routine_time_per_week.setEnabled(false);
-        routine_time_per_week.setName(""); // NOI18N
-        routine_time_per_week.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                routine_time_per_weekActionPerformed(evt);
-            }
-        });
-
         Choose_routine_btn.setBorder(null);
         Choose_routine_btn.setText("Routine");
         Choose_routine_btn.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -411,37 +369,29 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Username_label1)
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1))
-                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pubblication_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Publication_name_lbl)
-                            .addComponent(publication_name, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(routine_diet_difficulty, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(routine_diet_Type, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(routine_time_per_week, javax.swing.GroupLayout.Alignment.LEADING, 0, 230, Short.MAX_VALUE))
-                            .addComponent(Username_label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)))
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                        .addComponent(Search_Type_label)
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Choose_routine_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Choose_user_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                                .addComponent(Choose_diet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                        .addGap(135, 135, 135))))
+                                .addGap(34, 34, 34)
+                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                        .addGap(69, 69, 69)
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel1))
+                                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Username_label)))
+                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Choose_user_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                        .addComponent(Search_Type_label)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(Choose_diet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(Choose_routine_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         kGradientPanel2Layout.setVerticalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,20 +402,7 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jLabel4))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Choose_user_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                                .addComponent(Search_Type_label)
-                                .addGap(37, 37, 37))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                                .addComponent(Choose_diet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Choose_routine_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)))))
+                        .addComponent(jLabel4)))
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -474,21 +411,17 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(Username_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(Choose_user_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Search_Type_label)
+                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(Choose_diet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Username_label1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pubblication_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Publication_name_lbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(publication_name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(routine_diet_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(routine_diet_difficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(routine_time_per_week, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
+                        .addComponent(Choose_routine_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(144, 144, 144)
                         .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))))
         );
@@ -728,11 +661,6 @@ public class Home extends javax.swing.JFrame {
 
         side_pane.add(Create_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 120, -1));
 
-        profile_photo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        profile_photo.setForeground(new java.awt.Color(255, 255, 255));
-        profile_photo.setText("FOTO");
-        side_pane.add(profile_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 70, 30));
-
         username_btn.setBorder(null);
         username_btn.setFont(new java.awt.Font("Yu Gothic Light", 0, 15)); // NOI18N
         username_btn.setkEndColor(new java.awt.Color(0, 0, 0));
@@ -749,7 +677,7 @@ public class Home extends javax.swing.JFrame {
                 username_btnActionPerformed(evt);
             }
         });
-        side_pane.add(username_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 92, 28));
+        side_pane.add(username_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 110, 30));
         username_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 username_btnMousePressed(evt);
@@ -895,18 +823,13 @@ public class Home extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel13.setText("TOP 10 RANKING");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-            },
+        ranking.setModel(new javax.swing.table.DefaultTableModel(
+            ranking_matriz,
             new String [] {
                 "USUARIO","PUNTOS"
             }
         ));
-        jScrollPane4.setViewportView(jTable1);
+        jScrollPane4.setViewportView(ranking);
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -939,7 +862,7 @@ public class Home extends javax.swing.JFrame {
         );
         RankingLayout.setVerticalGroup(
             RankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
         );
 
         getContentPane().add(Ranking, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 950, 540));
@@ -1107,11 +1030,21 @@ public class Home extends javax.swing.JFrame {
             if(value instanceof JButton){
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
+                 String comment="";
+                 
+                int cont=0;
+                while(cont<imagenes_busqueda.size()){
+                    if(imagenes_busqueda.get(cont).getId().equals(boton.getName())){
+                        comment=imagenes_busqueda.get(cont).getDescripcion();
+                    }
+                    cont++;
+                }
+                
                 JSONObject obj = new JSONObject();
                 obj.put("publicacion", boton.getName());
                 String result = ServerService.sendPost("verlikes.php", obj);   
                 
-                     likes_comments_gui gui= new likes_comments_gui(boton.getName(),usuarioObj,boton.getName(),result);
+                     likes_comments_gui gui= new likes_comments_gui(comment,usuarioObj,comment,result);
                        gui.setVisible(true);
                         gui.setDefaultCloseOperation(0);
             }
@@ -1134,10 +1067,6 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
-    private void pubblication_DateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pubblication_DateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pubblication_DateActionPerformed
-
     private void SearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_SearchMousePressed
@@ -1149,11 +1078,9 @@ public class Home extends javax.swing.JFrame {
     private void Choose_user_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Choose_user_btnActionPerformed
         // TODO add your handling code here:
         username.setEnabled(true);
-        pubblication_Date.setEnabled(false);
-        routine_diet_Type.setEnabled(false);
-        publication_name.setEnabled(false);
-        routine_diet_difficulty.setEnabled(false);
-        routine_time_per_week.setEnabled(false);
+        Search.setEnabled(true);
+       
+       
         eleccion=1;
     }//GEN-LAST:event_Choose_user_btnActionPerformed
 
@@ -1164,29 +1091,29 @@ public class Home extends javax.swing.JFrame {
     private void Choose_diet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Choose_diet_btnActionPerformed
         // TODO add your handling code here:
          username.setEnabled(false);
-        pubblication_Date.setEnabled(true);
-        routine_diet_Type.setEnabled(true);
-        publication_name.setEnabled(true);
-        routine_diet_difficulty.setEnabled(true);
-        routine_time_per_week.setEnabled(false);
+         Search.setEnabled(false);
+      
         eleccion=2;
+         Tabla v = new Tabla();
+        JSONObject obj = new JSONObject();
+        obj.put("tipo", "1");
+               
+        String result = ServerService.sendPost("buscarDieta_Rutina.php", obj);
+        if(!result.equals("ZERO_RESULTS")){
+            JSONParser parser = new JSONParser();
+            try {  
+                JSONArray jArray = (JSONArray) parser.parse(result);
+            
+                imagenes_busqueda=v.ver_tabla(busqueda_table,"Discover",jArray);
+            } catch (ParseException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "ERROR. THERE ARE NOT PUBLICATIONS", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_Choose_diet_btnActionPerformed
-
-    private void routine_diet_TypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routine_diet_TypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_routine_diet_TypeActionPerformed
-
-    private void publication_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publication_nameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_publication_nameActionPerformed
-
-    private void routine_diet_difficultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routine_diet_difficultyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_routine_diet_difficultyActionPerformed
-
-    private void routine_time_per_weekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routine_time_per_weekActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_routine_time_per_weekActionPerformed
 
     private void Choose_routine_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Choose_routine_btnMousePressed
         // TODO add your handling code here:
@@ -1195,17 +1122,34 @@ public class Home extends javax.swing.JFrame {
     private void Choose_routine_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Choose_routine_btnActionPerformed
         // TODO add your handling code here:
         username.setEnabled(false);
-        pubblication_Date.setEnabled(true);
-        routine_diet_Type.setEnabled(false);
-        publication_name.setEnabled(true);
-        routine_diet_difficulty.setEnabled(true);
-        routine_time_per_week.setEnabled(true);
+        Search.setEnabled(false);
+        
         eleccion=3;
+         Tabla v = new Tabla();
+         JSONObject obj = new JSONObject();
+        obj.put("tipo", "0");
+               
+        String result = ServerService.sendPost("buscarDieta_Rutina.php", obj);
+        if(!result.equals("ZERO_RESULTS")){
+            JSONParser parser = new JSONParser();
+            try {  
+                JSONArray jArray = (JSONArray) parser.parse(result);
+            
+                imagenes_busqueda=v.ver_tabla(busqueda_table,"Discover",jArray);
+            } catch (ParseException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "ERROR. THERE ARE NOT PUBLICATIONS", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_Choose_routine_btnActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
         // TODO add your handling code here:
         //Controllers.Discover
+        
     }//GEN-LAST:event_SearchActionPerformed
 
     private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
@@ -1222,7 +1166,8 @@ public class Home extends javax.swing.JFrame {
     private void SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMouseClicked
         JSONObject obj = new JSONObject();
         obj.put("username", username.getText());
-               
+       
+        v = new Tabla();       
         String result = ServerService.sendPost("buscar.php", obj);
         if(!result.equals("ZERO_RESULTS")){
             JSONParser parser = new JSONParser();
@@ -1235,6 +1180,8 @@ public class Home extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "ERROR. THERE ARE NOT PUBLICATIONS", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
         
         
@@ -1243,7 +1190,7 @@ public class Home extends javax.swing.JFrame {
     private void lblMouseClicked(java.awt.event.MouseEvent evt){
         System.out.println("holaamigos");
     }
-    private void bnt1MousePressed(java.awt.event.MouseEvent evt) {                                         
+    private void bnt1MousePressed(java.awt.event.MouseEvent evt){                                         
         // TODO add your handling code here:
         Home h =new Home();
         h.setVisible(true);
@@ -1323,14 +1270,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Discover;
     private javax.swing.JPanel Discover_btn;
     private javax.swing.JPanel Home_btn;
-    private javax.swing.JLabel Publication_name_lbl;
     private javax.swing.JPanel Ranking;
     private javax.swing.JPanel Ranking_btn;
     private keeptoo.KButton Search;
     private javax.swing.JLabel Search_Type_label;
     private javax.swing.JToggleButton Subir;
     private javax.swing.JLabel Username_label;
-    private javax.swing.JLabel Username_label1;
     private javax.swing.JLabel btn_exit;
     private javax.swing.JTable busqueda_table;
     private javax.swing.JPanel home;
@@ -1355,17 +1300,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel3;
     private javax.swing.JTextArea pie_foto;
-    private javax.swing.JLabel profile_photo;
-    private javax.swing.JTextField pubblication_Date;
-    private javax.swing.JTextField publication_name;
-    private javax.swing.JComboBox<String> routine_diet_Type;
-    private javax.swing.JComboBox<String> routine_diet_difficulty;
-    private javax.swing.JComboBox<String> routine_time_per_week;
+    private javax.swing.JTable ranking;
     private javax.swing.JPanel side_pane;
     private javax.swing.JTable timeline;
     private javax.swing.JComboBox<String> tipo;
